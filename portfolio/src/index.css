@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+html {
+  scroll-behavior: smooth;
+}
+
+body{
+  background:
+    radial-gradient(circle at top left,#312e81 0%,#030712 35%),
+    radial-gradient(circle at bottom right,#164e63 0%,#030712 35%),
+    #030712;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: #7c3aed;
+  color: white;
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #6d28d9;
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-track {
+  background: #111827;
+}
+
+.glass-card {
+  background: rgba(255,255,255,.05);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 24px;
+  transition: .35s;
+}
+
+.glass-card:hover {
+  border-color: rgb(139 92 246);
+  transform: translateY(-8px);
+}
+
+.gradient-text {
+  background: linear-gradient(90deg,#8b5cf6,#06b6d4);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
