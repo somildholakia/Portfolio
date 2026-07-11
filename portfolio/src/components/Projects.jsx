@@ -15,7 +15,14 @@ export default function Projects() {
           title="Featured Projects"
         />
 
-        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
+        <p className="text-center text-gray-400 max-w-3xl mx-auto mb-16 leading-8">
+          Here are some of my favorite projects built while learning Full Stack
+          Development. Each project helped me strengthen my problem-solving
+          skills, understand real-world application architecture, and explore
+          modern web technologies.
+        </p>
+
+        <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
 
           {projects.map((project) => (
             <ProjectCard

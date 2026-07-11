@@ -3,17 +3,14 @@ import { motion } from "framer-motion";
 export default function Badge({ number, label }) {
   return (
     <motion.div
-      whileHover={{
-        y: -6,
-        scale: 1.05,
-      }}
-      className="glass-card px-5 py-4 flex flex-col items-center min-w-[120px]"
+      whileHover={{ y: -5 }}
+      className="glass-card w-36 h-24 flex flex-col justify-center items-center"
     >
-      <h3 className="text-2xl font-bold text-violet-400">
+      <h3 className="text-3xl font-bold text-violet-400">
         {number}
       </h3>
 
-      <p className="text-sm text-gray-400 text-center">
+      <p className="text-gray-400 text-sm text-center">
         {label}
       </p>
     </motion.div>

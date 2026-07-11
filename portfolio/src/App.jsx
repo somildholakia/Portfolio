@@ -4,7 +4,6 @@ import About from "./components/About";
 import Skills from "./components/Skills";
 import Projects from "./components/Projects";
 import Experience from "./components/Experience";
-import Journey from "./components/Journey";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import ScrollProgress from "./components/ScrollProgress";
@@ -13,24 +12,21 @@ import Background from "./components/Background";
 function App() {
   return (
     <>
-     <ScrollProgress />
       <Background />
+      <ScrollProgress />
 
-      <div className="relative text-white">
+      <div className="relative min-h-screen w-full text-white overflow-x-hidden">
 
         <Navbar />
 
-        <Hero />
-
-        <About />
-
-        <Skills />
-
-        <Projects />
-
-        <Experience />
-
-        <Contact />
+        <main className="w-full">
+          <Hero />
+          <About />
+          <Skills />
+          <Projects />
+          <Experience />
+          <Contact />
+        </main>
 
         <Footer />
 

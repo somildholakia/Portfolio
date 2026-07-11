@@ -1,61 +1,112 @@
 import { motion } from "framer-motion";
-import skillCategories from "../data/skills";
+import {
+  FaLaptopCode,
+  FaServer,
+  FaDatabase,
+  FaTools,
+} from "react-icons/fa";
 
-function Skills() {
+import skillCategories from "../data/skills";
+import SectionTitle from "./SectionTitle";
+
+const icons = {
+  Frontend: <FaLaptopCode />,
+  Backend: <FaServer />,
+  Database: <FaDatabase />,
+  Tools: <FaTools />,
+};
+
+export default function Skills() {
   return (
     <section
       id="skills"
-      className="section"
+      className="py-28 px-6"
     >
+      <div className="max-w-7xl mx-auto">
 
-      <h2 className="text-4xl font-bold text-center mb-16">
-        Skills
-      </h2>
+        <SectionTitle
+          subtitle="Tech Stack"
+          title="Skills & Technologies"
+        />
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <p className="max-w-3xl mx-auto text-center text-gray-400 leading-8 mb-16">
+          I enjoy building complete web applications from frontend interfaces to
+          scalable backend systems. Over the past few years, I've worked with
+          modern technologies across the MERN stack, Open Source, and cloud
+          platforms while continuously learning and improving.
+        </p>
 
-        {skillCategories.map((category) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-8">
 
-          <motion.div
+          {skillCategories.map((category, index) => (
 
-            whileHover={{
-              y:-10,
-              scale:1.03
-            }}
+            <motion.div
+              key={category.title}
+              initial={{
+                opacity: 0,
+                y: 40,
+              }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+              }}
+              viewport={{ once: true }}
+              transition={{
+                duration: 0.5,
+                delay: index * 0.1,
+              }}
+              whileHover={{
+                y: -10,
+                scale: 1.02,
+              }}
+              className="glass-card p-8"
+            >
 
-            key={category.title}
+              <div className="w-16 h-16 rounded-2xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-3xl text-violet-400 mb-6">
 
-            className="bg-white/5 rounded-2xl p-8 border border-white/10"
+                {icons[category.title]}
 
-          >
+              </div>
 
-            <h3 className="text-2xl font-bold mb-6 text-violet-400">
-              {category.title}
-            </h3>
+              <h3 className="text-2xl font-bold mb-6">
+                {category.title}
+              </h3>
 
-            <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-3">
 
-              {category.skills.map((skill) => (
+                {category.skills.map((skill) => (
 
-                <span
-                  key={skill}
-                  className="bg-violet-600/20 border border-violet-500 rounded-full px-4 py-2 text-sm"
-                >
-                  {skill}
-                </span>
+                  <span
+                    key={skill}
+                    className="
+                      px-4
+                      py-2
+                      rounded-full
+                      bg-violet-500/10
+                      border
+                      border-violet-500/20
+                      text-violet-300
+                      text-sm
+                      hover:bg-violet-500
+                      hover:text-white
+                      transition-all
+                      duration-300
+                    "
+                  >
+                    {skill}
+                  </span>
 
-              ))}
+                ))}
 
-            </div>
+              </div>
 
-          </motion.div>
+            </motion.div>
 
-        ))}
+          ))}
+
+        </div>
 
       </div>
-
     </section>
   );
 }
-
-export default Skills;

@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
-import { FaBars, FaTimes } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
+import {
+  FaBars,
+  FaTimes,
+  FaDownload,
+} from "react-icons/fa";
 
 const navLinks = [
   { title: "About", href: "#about" },
@@ -11,80 +15,173 @@ const navLinks = [
 ];
 
 export default function Navbar() {
-  const [mobile, setMobile] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const listener = () => {
-      setScrolled(window.scrollY > 30);
+    const scroll = () => {
+      setScrolled(window.scrollY > 20);
     };
 
-    window.addEventListener("scroll", listener);
+    window.addEventListener("scroll", scroll);
 
-    return () => window.removeEventListener("scroll", listener);
+    return () => window.removeEventListener("scroll", scroll);
   }, []);
 
   return (
     <header
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-[#030712]/70 backdrop-blur-xl border-b border-white/10"
+          ? "backdrop-blur-xl bg-[#030712]/80 border-b border-white/10"
           : "bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 h-20 flex items-center justify-between">
 
-        <motion.h1
+        {/* Logo */}
+
+        <motion.a
+          href="#"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="font-bold text-2xl bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent"
+          whileHover={{ scale: 1.05 }}
+          className="text-2xl md:text-3xl font-black bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400 bg-clip-text text-transparent"
         >
           Somil.dev
-        </motion.h1>
+        </motion.a>
 
-        <nav className="hidden md:flex gap-8 text-sm font-medium">
+        {/* Desktop */}
+
+        <nav className="hidden md:flex items-center gap-8">
 
           {navLinks.map((item) => (
             <a
               key={item.title}
               href={item.href}
-              className="hover:text-violet-400 duration-300"
+              className="relative text-gray-300 hover:text-white transition duration-300 group"
             >
               {item.title}
+
+              <span
+                className="
+                absolute
+                left-0
+                -bottom-2
+                w-0
+                h-[2px]
+                bg-violet-500
+                transition-all
+                duration-300
+                group-hover:w-full
+                "
+              />
             </a>
           ))}
 
+          <a
+            href="/resume.pdf"
+            download
+            className="
+            flex
+            items-center
+            gap-2
+            px-5
+            py-2.5
+            rounded-full
+            bg-gradient-to-r
+            from-violet-600
+            to-cyan-500
+            text-white
+            font-semibold
+            hover:scale-105
+            transition-all
+            duration-300
+            shadow-lg
+            shadow-violet-600/30
+            "
+          >
+            <FaDownload size={14} />
+            Resume
+          </a>
+
         </nav>
 
+        {/* Mobile Button */}
+
         <button
-          onClick={() => setMobile(!mobile)}
+          onClick={() => setMobileOpen(!mobileOpen)}
           className="md:hidden text-2xl"
         >
-          {mobile ? <FaTimes /> : <FaBars />}
+          {mobileOpen ? <FaTimes /> : <FaBars />}
         </button>
+
       </div>
+
+      {/* Mobile Menu */}
 
       <AnimatePresence>
 
-        {mobile && (
+        {mobileOpen && (
 
           <motion.div
-            initial={{ opacity: 0, y: -15 }}
+            initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -15 }}
-            className="md:hidden bg-[#111827] border-t border-white/10"
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.25 }}
+            className="
+            md:hidden
+            backdrop-blur-xl
+            bg-[#030712]/95
+            border-t
+            border-white/10
+            "
           >
 
-            {navLinks.map((item) => (
+            <div className="flex flex-col p-6 gap-4">
+
+              {navLinks.map((item) => (
+
+                <a
+                  key={item.title}
+                  href={item.href}
+                  onClick={() => setMobileOpen(false)}
+                  className="
+                  py-3
+                  rounded-lg
+                  text-gray-300
+                  hover:bg-violet-600/20
+                  hover:text-white
+                  transition-all
+                  px-4
+                  "
+                >
+                  {item.title}
+                </a>
+
+              ))}
+
               <a
-                key={item.title}
-                href={item.href}
-                onClick={() => setMobile(false)}
-                className="block px-6 py-4 border-b border-white/5 hover:bg-violet-600/20"
+                href="/resume.pdf"
+                download
+                className="
+                mt-2
+                flex
+                justify-center
+                items-center
+                gap-2
+                py-3
+                rounded-xl
+                bg-gradient-to-r
+                from-violet-600
+                to-cyan-500
+                font-semibold
+                "
               >
-                {item.title}
+                <FaDownload />
+                Download Resume
               </a>
-            ))}
+
+            </div>
 
           </motion.div>
 
