@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-
 export default function TimelineCard({ item, index }) {
   return (
     <motion.div
