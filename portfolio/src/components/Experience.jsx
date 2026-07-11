@@ -1,4 +1,4 @@
-import experience from "../data/experience";
+import experience from "../data/Experience";
 import TimelineCard from "./TimelineCard";
 import SectionTitle from "./SectionTitle";
 

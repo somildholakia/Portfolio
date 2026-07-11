@@ -1,4 +1,4 @@
-const experience = [
+const Experience = [
   {
     id: 1,
     year: "2026",
@@ -12,7 +12,7 @@ const experience = [
     color: "from-violet-500 to-fuchsia-500",
   },
 
-  
+
   {
     id: 2,
     year: "2026",
@@ -79,4 +79,4 @@ const experience = [
   },
 ];
 
-export default experience;
+export default Experience;
