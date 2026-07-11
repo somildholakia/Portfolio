@@ -54,6 +54,7 @@ export default function TimelineCard({ item, index }) {
             key={skill}
             className="px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-300 text-xs"
           >
+            
             {skill}
           </span>
         ))}
