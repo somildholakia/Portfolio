@@ -12,6 +12,7 @@ const experience = [
     color: "from-violet-500 to-fuchsia-500",
   },
 
+  
   {
     id: 2,
     year: "2026",
