@@ -37,15 +37,7 @@ const projects = [
     tags: ["React", "REST API", "OpenWeather", "CSS"],
     color: "mint",
   },
-  {
-    title: "Leads Tracker",
-    kind: "CHROME EXTENSION",
-    description: "A lightweight browser extension project for saving and organizing useful leads while browsing.",
-    image: wandersite,
-    github: "https://github.com/somildholakia/chrome-extension",
-    tags: ["JavaScript", "Chrome Extensions", "HTML", "CSS"],
-    color: "peach",
-  },
+
 ];
 
 const experiences = [
