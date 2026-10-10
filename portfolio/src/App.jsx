@@ -1,38 +1,51 @@
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import About from "./components/About";
-import Skills from "./components/Skills";
-import Projects from "./components/Projects";
-import Experience from "./components/Experience";
-import Contact from "./components/Contact";
-import Footer from "./components/Footer";
-import ScrollProgress from "./components/ScrollProgress";
-import Background from "./components/Background";
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { FaArrowDown, FaArrowRight, FaBars, FaCodeBranch, FaGithub, FaLinkedin, FaEnvelope, FaDownload, FaExternalLinkAlt, FaTimes } from "react-icons/fa";
+import profile from "./assets/profile.jpg";
+import wandersite from "./assets/wandersite.png";
+import video from "./assets/video.png";
+import weather from "./assets/weather.png";
 
-function App() {
-  return (
-    <>
-      <Background />
-      <ScrollProgress />
-
-      <div className="relative min-h-screen w-full text-white overflow-x-hidden">
-
-        <Navbar />
-
-        <main className="w-full">
-          <Hero />
-          <About />
-          <Skills />
-          <Projects />
-          <Experience />
-          <Contact />
-        </main>
-
-        <Footer />
-
-      </div>
-    </>
-  );
+const projects = [
+ {title:"WanderSite",kind:"FULL-STACK WEB APP",description:"A travel listing platform inspired by Airbnb, with authentication, reviews, image uploads, interactive maps and full CRUD.",image:wandersite,github:"https://github.com/somildholakia/Mini-airbnb",tags:["React","Node.js","MongoDB","Cloudinary"],color:"butter"},
+ {title:"CodeMeet",kind:"REAL-TIME COMMUNICATION",description:"A Zoom-like video conferencing platform with meeting rooms, audio/video streaming and screen sharing.",image:video,github:"https://github.com/somildholakia/conferencing",tags:["React","WebRTC","Socket.io","Node.js"],color:"lilac"},
+ {title:"Weather App",kind:"API / FRONTEND",description:"A responsive weather application with live OpenWeather data, dynamic search and a clean interface.",image:weather,github:"https://github.com/somildholakia/Weather_app_react",tags:["React","REST API","CSS"],color:"mint"}
+];
+const experiences=[
+ ["2026","Open-source contributor","GSSoC · NSoC · SSoC","Contributing to open-source projects, working with maintainers and learning through real-world collaboration.","lilac"],
+ ["2026","AI & ML Internship","Coding Blocks School of Technology","Built hands-on projects across machine learning, data science and agentic AI.","butter"],
+ ["2026","Campus Ambassador","Cloud Junction","Supporting student engagement and community learning around cloud technologies.","mint"],
+ ["2026","McKinsey Forward","Professional development","Learning structured problem-solving, communication and professional skills.","peach"]
+];
+const skillGroups=[
+ {title:"FRONTEND",color:"lilac",skills:["React","JavaScript","HTML & CSS","Tailwind CSS"]},
+ {title:"BACKEND",color:"butter",skills:["Node.js","Express.js","REST APIs","JWT & Auth"]},
+ {title:"DATA & TOOLS",color:"mint",skills:["MongoDB","Mongoose","Git & GitHub","Cloudinary"]}
+];
+const socials=[
+ {label:"GitHub",href:"https://github.com/somildholakia",Icon:FaGithub},
+ {label:"LinkedIn",href:"https://www.linkedin.com/in/somilsomi/",Icon:FaLinkedin},
+ {label:"Email",href:"mailto:somildholakia0852@gmail.com",Icon:FaEnvelope}
+];
+function SectionHeading({eyebrow,title,note}){return <div className="section-heading"><p className="eyebrow">{eyebrow}</p><h2>{title}</h2>{note&&<p className="section-note">{note}</p>}</div>}
+export default function App(){
+ const [menuOpen,setMenuOpen]=useState(false);
+ const links=[["Work","#projects"],["About","#about"],["Journey","#journey"],["Contact","#contact"]];
+ return <div className="site-shell"><div className="top-strip"/>
+ <header className="site-header"><a href="#home" className="wordmark">somil<span>.dev</span><i>✳</i></a><button className="menu-toggle" aria-label={menuOpen?"Close navigation":"Open navigation"} aria-expanded={menuOpen} onClick={()=>setMenuOpen(v=>!v)}>{menuOpen?<FaTimes/>:<FaBars/>}</button><nav className={menuOpen?"nav-links nav-open":"nav-links"} aria-label="Main navigation">{links.map(([label,href])=><a key={label} href={href} onClick={()=>setMenuOpen(false)}>{label}</a>)}<a className="nav-resume" href="/resume.pdf" download>Resume <FaDownload/></a></nav></header>
+ <main>
+ <section className="hero section-wrap" id="home"><motion.div className="hero-copy" initial={{opacity:0,y:18}} animate={{opacity:1,y:0}} transition={{duration:.65}}>
+ <p className="eyebrow"><span className="status-dot"/> AVAILABLE FOR INTERNSHIPS & COLLABORATIONS</p><h1>I build things<br/>for the <span className="highlight-word">internet.</span></h1>
+ <p className="hero-lede">Hey, I’m <strong>Somil Dholakia</strong> — a Computer Science student and developer turning ideas into useful, thoughtful web experiences.</p>
+ <div className="chip-row"><span className="chip chip-white">✳ MERN STACK</span><span className="chip chip-lime">⌘ OPEN SOURCE</span><span className="chip chip-yellow">↗ BUILDING IN PUBLIC</span></div>
+ <div className="hero-actions"><a className="button button-dark" href="#projects">Explore my work <FaArrowDown/></a><a className="button button-light" href="#contact">Let’s connect <FaArrowRight/></a></div>
+ <div className="social-links">{socials.map(({label,href,Icon})=><a key={label} href={href} aria-label={label} target={href.startsWith("http")?"_blank":undefined} rel={href.startsWith("http")?"noreferrer":undefined}><Icon/><span>{label}</span></a>)}</div>
+ </motion.div><motion.div className="hero-art" initial={{opacity:0,scale:.92,rotate:2}} animate={{opacity:1,scale:1,rotate:0}} transition={{duration:.8,delay:.1}}><div className="art-note note-top">A LITTLE CODE.<br/>A LOT OF CURIOSITY.</div><div className="art-blob blob-coral"/><div className="art-blob blob-lime"/><div className="art-blob blob-blue"/><div className="art-spark spark-one">✳</div><div className="art-spark spark-two">✦</div><div className="portrait-card"><div className="portrait-frame"><img src={profile} alt="Portrait of Somil Dholakia"/></div><div className="portrait-label"><span>MADE IN MUMBAI</span><span>✹</span></div></div><div className="floating-sticker">BUILD<br/>THINGS<br/><b>✳</b></div><div className="art-note note-bottom">DESIGN MINDS.<br/>SHIP IDEAS.</div></motion.div></section>
+ <section className="stats-band section-wrap" aria-label="Highlights">{[["190+","days building in public"],["5,500+","LinkedIn community*"],["20+","projects built"],["6","programs & internships"]].map(([num,label],i)=><div className="stat-item" key={label}><strong>{num}</strong><span>{label}</span>{i<3&&<i/>}</div>)}</section>
+ <section className="section-wrap section-block" id="projects"><SectionHeading eyebrow="01 — SELECTED WORK" title={<>Things I’ve been<br className="desktop-break"/> making lately.</>} note="A few experiments, real-world builds and ideas made tangible."/><div className="project-grid">{projects.map((p,i)=><motion.article className={`project-card ${p.color}`} key={p.title} initial={{opacity:0,y:22}} whileInView={{opacity:1,y:0}} viewport={{once:true,amount:.15}} transition={{duration:.45,delay:i*.08}}><div className="project-visual"><span className="project-kind">{p.kind}</span><div className="project-image"><img src={p.image} alt={p.title+" project preview"} loading="lazy"/></div><span className="project-number">0{i+1}</span></div><div className="project-content"><div className="project-title-row"><h3>{p.title}</h3><a href={p.github} target="_blank" rel="noreferrer" aria-label={`View ${p.title} on GitHub`}><FaArrowRight/></a></div><p>{p.description}</p><div className="tag-list">{p.tags.map(t=><span key={t}>{t}</span>)}</div><a className="project-link" href={p.github} target="_blank" rel="noreferrer"><FaGithub/> View source <FaExternalLinkAlt/></a></div></motion.article>)}</div></section>
+ <section className="about-section"><div className="section-wrap about-grid" id="about"><div><SectionHeading eyebrow="02 — A BIT ABOUT ME" title={<>Curious<br/>by default.</}/><p className="about-copy">I’m a Mumbai-based Computer Science student who loves building useful products, learning in public, and figuring out how things work under the hood. I care about the details — from the first line of code to the feeling someone gets using the final product.</p><p className="about-copy">Outside the editor, I contribute to open source, join developer programs, and share what I learn with a growing community. I believe showing up consistently is one of the best ways to get better.</p><a className="text-link" href="https://www.linkedin.com/in/somilsomi/" target="_blank" rel="noreferrer">Follow the journey <FaArrowRight/></a></div><div className="about-sticker-card"><div className="orbit orbit-one"/><div className="orbit orbit-two"/><span className="big-spark">✳</span><div className="about-card-copy"><span>MY DEFAULT MODE</span><h3>Build.<br/>Share.<br/><em>Repeat.</em></h3></div><span className="handwritten">always learning ↗</span></div></div></section>
+ <section className="section-wrap section-block" id="skills"><SectionHeading eyebrow="03 — MY TOOLBOX" title="Tools I reach for." note="A practical stack for turning ideas into working products."/><div className="skills-grid">{skillGroups.map(g=><div className={`skill-card ${g.color}`} key={g.title}><div className="skill-card-top"><span>{g.title}</span><FaCodeBranch/></div>{g.skills.map((s,i)=><div className="skill-row" key={s}><span className="skill-index">0{i+1}</span><span>{s}</span><span className="skill-arrow">↗</span></div>)}</div>)}</div></section>
+ <section className="journey-section" id="journey"><div className="section-wrap section-block"><SectionHeading eyebrow="04 — THE JOURNEY" title="More than just code." note="Learning, building, contributing and meeting people along the way."/><div className="timeline">{experiences.map(([year,title,place,description,color],i)=><motion.article className="timeline-item" key={title+place} initial={{opacity:0,x:-12}} whileInView={{opacity:1,x:0}} viewport={{once:true,amount:.2}} transition={{duration:.35,delay:i*.05}}><div className={`timeline-marker ${color}`}>{String(i+1).padStart(2,"0")}</div><div className="timeline-year">{year}</div><div className="timeline-content"><h3>{title}</h3><p className="timeline-place">{place}</p><p>{description}</p></div><span className="timeline-arrow">↗</span></motion.article>)}</div></div></section>
+ <section className="contact-section" id="contact"><div className="section-wrap contact-panel"><div className="contact-deco contact-deco-one">✳</div><div className="contact-deco contact-deco-two">✦</div><p className="eyebrow">HAVE A GOOD IDEA?</p><h2>Let’s make<br/><span>it real.</span></h2><p className="contact-copy">Open to internships, collaborations and interesting conversations. My inbox is open.</p><div className="contact-actions"><a className="button button-lime" href="mailto:somildholakia0852@gmail.com">Say hello <FaArrowRight/></a><a className="contact-social" href="https://github.com/somildholakia" target="_blank" rel="noreferrer">GitHub ↗</a><a className="contact-social" href="https://www.linkedin.com/in/somilsomi/" target="_blank" rel="noreferrer">LinkedIn ↗</a></div></div></section>
+ </main><footer className="site-footer section-wrap"><a className="wordmark" href="#home">somil<span>.dev</span><i>✳</i></a><p>Designed with curiosity. Built with code.</p><a href="#home" className="back-top">Back to top ↑</a><small>© {new Date().getFullYear()} Somil Dholakia</small></footer></div>
 }
-
-export default App;
