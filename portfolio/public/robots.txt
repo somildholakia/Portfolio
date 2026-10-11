@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://somildholakia.vercel.app/sitemap.xml
