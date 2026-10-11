@@ -130,7 +130,7 @@ export default function App() {
           <motion.div className="hero-copy" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.65 }}>
             <p className="eyebrow"><span className="status-dot" /> COMPUTER SCIENCE STUDENT · MUMBAI, INDIA</p>
             <h1>I build things<br />for the <span className="highlight-word">internet.</span></h1>
-            <p className="hero-lede">Hey, I’m <strong>Somil Dholakia</strong> — a Computer Science student and MERN Stack Developer building useful web experiences, contributing to open source and sharing the learning journey.</p>
+            <p className="hero-lede">Hey, I’m <strong>Somil Dholakia (Somi)</strong> — a Computer Science student and MERN Stack Developer building useful web experiences, contributing to open source and sharing the learning journey.</p>
             <div className="chip-row">
               <span className="chip chip-white">✳ MERN STACK</span>
               <span className="chip chip-lime">⌘ OPEN SOURCE</span>
