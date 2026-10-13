@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://somildholakia.vercel.app/sitemap.xml
+Sitemap: https://portfolio.dyvona.in/sitemap.xml
