@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { FaArrowDown, FaArrowRight, FaBars, FaCodeBranch, FaGithub, FaLinkedin, FaEnvelope, FaDownload, FaExternalLinkAlt, FaTimes } from "react-icons/fa";
 import profile from "./assets/profile.jpg";
@@ -109,7 +109,25 @@ function SectionHeading({ eyebrow, title, note }) {
 
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeManual, setActiveManual] = useState(null);
   const links = [["Work", "#projects"], ["About", "#about"], ["Journey", "#journey"], ["Contact", "#contact"]];
+
+  useEffect(() => {
+    if (!activeManual) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") setActiveManual(null);
+    };
+
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [activeManual]);
 
   return (
     <div className="site-shell">
@@ -256,6 +274,84 @@ export default function App() {
             </div>
           </div>
         </section>
+
+        <section className="section-wrap study-section" id="study-materials">
+          <SectionHeading
+            eyebrow="05 — STUDY MATERIALS"
+            title={<>Lab manuals,<br className="desktop-break" /> ready to explore.</>}
+            note="Open a manual in the built-in reader and select text to copy it without downloading the file."
+          />
+          <div className="study-buttons">
+            <button
+              type="button"
+              className="study-button study-button-is"
+              onClick={() => setActiveManual({
+                abbr: "IS",
+                title: "Information Security Practicals",
+                details: "TYCS · 31 pages",
+                file: "/manuals/is-lab-manual.pdf",
+              })}
+              aria-label="Open Information Security lab manual"
+            >
+              <span className="study-button-code">IS</span>
+              <span className="study-button-copy">
+                <strong>Information Security</strong>
+                <small>Practical journal · 31 pages</small>
+              </span>
+              <FaArrowRight className="study-button-arrow" />
+            </button>
+            <button
+              type="button"
+              className="study-button study-button-ai"
+              onClick={() => setActiveManual({
+                abbr: "AI",
+                title: "Artificial Intelligence Lab Manual",
+                details: "TYCS Semester VI · 43 pages",
+                file: "/manuals/ai-lab-manual.pdf",
+              })}
+              aria-label="Open Artificial Intelligence lab manual"
+            >
+              <span className="study-button-code">AI</span>
+              <span className="study-button-copy">
+                <strong>Artificial Intelligence</strong>
+                <small>Lab manual · 43 pages</small>
+              </span>
+              <FaArrowRight className="study-button-arrow" />
+            </button>
+          </div>
+        </section>
+
+        {activeManual && (
+          <div className="manual-viewer" role="dialog" aria-modal="true" aria-label={activeManual.title}>
+            <div className="manual-viewer-bar">
+              <div className="manual-viewer-heading">
+                <span className="manual-viewer-badge">{activeManual.abbr}</span>
+                <span>
+                  <strong>{activeManual.title}</strong>
+                  <small>{activeManual.details}</small>
+                </span>
+              </div>
+              <div className="manual-viewer-actions">
+                <a href={activeManual.file} target="_blank" rel="noreferrer" className="manual-open-tab">
+                  Open in new tab <FaExternalLinkAlt />
+                </a>
+                <button type="button" className="manual-close" onClick={() => setActiveManual(null)} aria-label="Close document viewer">
+                  <FaTimes />
+                </button>
+              </div>
+            </div>
+            <div className="manual-reader">
+              <iframe
+                key={activeManual.file}
+                src={`${activeManual.file}#toolbar=1&navpanes=0&view=FitH`}
+                title={activeManual.title}
+              />
+            </div>
+            <p className="manual-copy-hint">
+              To copy text, select it inside the document, then choose Copy. On a phone, long-press the selected text.
+            </p>
+          </div>
+        )}
       </main>
 
       <footer className="site-footer section-wrap">
